@@ -362,16 +362,29 @@ class TwitterSource extends DataSource {
 		if (!$authentication) {
 			$authentication = sprintf("Bearer %s", $this->_auth());
 		}
+		
+		if (function_exists('gzdecode')) {
+			$accept_encoding = 'gzip';
+		}
+		else {
+			$accept_encoding = 'text/plain';
+		}
+		
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLINFO_HEADER_OUT, true);
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
 			'Authorization: ' . $authentication,
 			'Content-Type: application/x-www-form-urlencoded;charset=UTF-8',
-			'Accept-Encoding: gzip'
+			'Accept-Encoding: '.$accept_encoding
 		));
 
 		// Execute
-		$response = json_decode(gzdecode(curl_exec($curl)));
+		if (function_exists('gzdecode')) {
+			$response = json_decode(gzdecode(curl_exec($curl)));
+		}
+		else {
+			$response = json_decode((curl_exec($curl)));
+		}
 
 		// check response
 		if (!$response) {
