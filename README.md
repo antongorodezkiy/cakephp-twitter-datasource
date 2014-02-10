@@ -9,7 +9,7 @@ To use the Twitter API you need to have an application setup. See [the app manag
 Lastly keep in mind the rules and guideline for using Twitter API. Read more about their policies at [Twitter API docs](https://dev.twitter.com/docs)
 
 ### Dependencies
-* PECL :: Package :: pecl_http
+* PECL :: Package :: pecl_http (or https://github.com/Seebz/Snippets/blob/master/php/http_build_url.php)
 
 ### 1. Get the source
 
