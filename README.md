@@ -8,6 +8,9 @@ To use the Twitter API you need to have an application setup. See [the app manag
 
 Lastly keep in mind the rules and guideline for using Twitter API. Read more about their policies at [Twitter API docs](https://dev.twitter.com/docs)
 
+### Dependencies
+* PECL :: Package :: pecl_http
+
 ### 1. Get the source
 
 Clone the project to an appropriately named plugin folder:
