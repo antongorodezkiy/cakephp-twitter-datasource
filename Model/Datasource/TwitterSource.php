@@ -22,6 +22,7 @@ class TwitterSource extends DataSource {
  */
 	public $description = 'Twitter API source';
 	protected $_accessToken = null;
+	protected $_last_response = null;
 
 	const AUTH_URL = 'https://api.twitter.com/oauth2/token/';
 	const API_URL = 'https://api.twitter.com/1.1/';
@@ -120,6 +121,9 @@ class TwitterSource extends DataSource {
 
 				// Fetch data
 				$data = $this->_request('GET', $url, $conditions);
+				
+				// Move last response to model
+				$model->last_response = $this->_last_response;
 
 				if (!empty($data->statuses)) {
 					$data = $data->statuses;
@@ -372,6 +376,8 @@ class TwitterSource extends DataSource {
 
 		// Execute
 		$response = json_decode(gzdecode(curl_exec($curl)));
+		
+		$this->_last_response = $response;
 
 		// check response
 		if (!$response) {
